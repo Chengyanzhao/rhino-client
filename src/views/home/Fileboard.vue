@@ -6,14 +6,17 @@
     <div class="fileboard-content">
       <!-- 列表 -->
       <template v-for="(fileItem, index) in list">
-        <card-float class="file-item"
-                    :key="fileItem._id">
-          <image-item :name="fileItem.name"
-                      :url="fileItem.url"
-                      :key="'image-file-'+index"
-                      @remove="onRemove(fileItem)">
-          </image-item>
-        </card-float>
+        <a-spin :key="'spin'+fileItem.name+index"
+                :spinning="!!fileItem.loading">
+          <card-float class="file-item"
+                      :key="fileItem._id">
+            <image-item :name="fileItem.name"
+                        :url="fileItem.url"
+                        :key="'image-file-'+index"
+                        @remove="onRemove(fileItem)">
+            </image-item>
+          </card-float>
+        </a-spin>
       </template>
       <!-- 上传中 -->
       <template v-for="(uploadItem,index) in uploadList">
@@ -29,13 +32,13 @@
 </template>
 
 <script>
-import { Icon, message } from 'ant-design-vue'
+import { Icon, Spin, message } from 'ant-design-vue'
 import { CardFloat, UploadCard, ImageUpload, ImageItem } from '@/components'
 import { listType, list } from '@/api/folder'
 import { remove } from '@/api/file'
 import { getComponentRegister } from '@/utils/componentUtil'
 
-const antdComps = getComponentRegister([Icon, CardFloat, UploadCard, ImageUpload, ImageItem])
+const antdComps = getComponentRegister([Icon, Spin, CardFloat, UploadCard, ImageUpload, ImageItem])
 
 export default {
   name: 'Fileboard',
@@ -88,6 +91,9 @@ export default {
     // 删除图片
     onRemove(fileItem) {
       fileItem.operating = true
+      if (!fileItem.loading) {
+        this.$set(fileItem, 'loading', true)
+      }
       remove(fileItem.id).then(item => {
         const index = this.list.findIndex(file => file.id === fileItem.id)
         if (index !== -1) {
@@ -97,6 +103,8 @@ export default {
       }).catch(err => {
         console.log(err)
         message.error('删除失败！')
+      }).finally(() => {
+        fileItem.loading = false
       })
     }
   }
