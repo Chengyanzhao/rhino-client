@@ -114,6 +114,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/dimens.scss";
+@import "@/assets/css/colors.scss";
 
 .image-item {
   position: relative;
@@ -164,10 +165,18 @@ export default {
       text-align: right;
       &-btn {
         position: relative;
+        display: inline-block;
         margin: 0 2px;
         padding: 0 4px;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        border-radius: 50%;
         &:last-child {
-          padding-right: 0;
+          margin-right: 0;
+        }
+        &:hover {
+          background-color: $iconBtnHoverColor;
         }
       }
     }
