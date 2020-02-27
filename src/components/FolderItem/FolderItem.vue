@@ -11,11 +11,6 @@
         <a-icon type="close-circle"
                 shape="circle" />
       </span>
-      <!-- <a-button shape="circle"
-                icon="close-circle"
-                style="color: #888"
-                size="small"
-                @click="onRemoveClick" /> -->
     </span>
   </div>
 </template>
