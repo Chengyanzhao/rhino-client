@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueLazyload from 'vue-lazyload'
 import App from './App.vue'
 import router from '@/router/index'
 import store from '@/store/index'
@@ -10,6 +11,7 @@ import './assets/css/theme.scss'
 
 Vue.use(Animate)
 Vue.use(Axios)
+Vue.use(VueLazyload)
 Vue.config.productionTip = false
 
 new Vue({

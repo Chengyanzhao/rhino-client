@@ -7,7 +7,7 @@
                 shape="circle"
                 theme="twoTone" />
       </span>
-      <img :src="url"
+      <img v-lazy="url"
            :alt="name"
            :width="width"
            :height="height"
@@ -132,14 +132,6 @@ export default {
         }
       }
     }
-    .cover {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.2);
-    }
     .operate-content {
       position: absolute;
       right: 0;
@@ -155,14 +147,21 @@ export default {
     }
   }
   .footer {
+    width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     padding: 8px;
     .meta {
+      flex: 1 1 auto;
       display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     &-control {
+      flex: 0 0 60px;
+      text-align: right;
       &-btn {
         position: relative;
         margin: 0 2px;
