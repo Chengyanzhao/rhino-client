@@ -21,7 +21,7 @@
               <a-icon type="tag" />关于
             </a-menu-item>
             <a-menu-item key="github">
-              <a href="https://ant.design"
+              <a href="https://github.com/Chengyanzhao/rhino-client"
                  target="_blank"
                  rel="noopener noreferrer">
                 <a-icon type="link"></a-icon>Github
