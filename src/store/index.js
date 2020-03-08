@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { getStore } from '@/utils/storage'
 import { ACCESS_TOKEN } from './storage-types'
-import { SET_TOKEN, SET_USERID, SET_USERNAME } from './mutation-types'
+import { SET_TOKEN, SET_USERID, SET_USERNAME } from '@/store/mutation-types'
 import { login, logout } from '@/api/auth'
-import { setStore, clearStore } from '../utils/storage'
+import { setStore } from '../utils/storage'
 
 Vue.use(Vuex)
 
@@ -17,6 +17,7 @@ export default new Vuex.Store({
   mutations: {
     [SET_TOKEN](state, token) {
       state.token = token
+      setStore(ACCESS_TOKEN, token)
     },
     [SET_USERID](state, userId) {
       state.userId = userId
@@ -34,7 +35,6 @@ export default new Vuex.Store({
           commit(SET_TOKEN, token)
           commit(SET_USERID, userId)
           commit(SET_USERNAME, userName)
-          console.log(userName)
           return undefined
         }
         throw res
@@ -42,8 +42,9 @@ export default new Vuex.Store({
     },
     Logout({ commit, state }) {
       return logout({ token: state.token }).then(() => {
+      }).finally(() => {
+        debugger
         commit(SET_TOKEN, '')
-        clearStore(ACCESS_TOKEN)
       })
     }
     // GetInfo({ commit }) {

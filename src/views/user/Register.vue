@@ -111,7 +111,7 @@
 <script>
 import md5 from 'md5'
 import { notification, Row, Col, Form, Input, Checkbox, Button, Icon, Alert, Select, Popover, Progress } from 'ant-design-vue'
-import { Register } from '@/api/auth'
+import { register } from '@/api/auth'
 
 const levelNames = {
   0: '低',
@@ -254,7 +254,7 @@ export default {
           delete loginParams.username
           loginParams.username = values.username
           loginParams.password = md5(values.password)
-          Register(loginParams)
+          register(loginParams)
             .then((res) => this.loginSuccess(loginParams))
             .catch(err => this.requestFailed(err))
             .finally(() => {

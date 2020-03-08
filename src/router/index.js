@@ -71,10 +71,6 @@ const router = new Router({
       ]
     },
     {
-      path: '/test',
-      component: () => import(/* webpackChunkName: "test" */ '@/views/test.vue')
-    },
-    {
       path: '*',
       redirect: '/'
     }

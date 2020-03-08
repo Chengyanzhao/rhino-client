@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { notification } from 'ant-design-vue'
 import store from '@/store/index'
+import { SET_TOKEN } from '@/store/mutation-types'
 import { ACCESS_TOKEN } from '@/store/storage-types'
 import { getStore } from '@/utils/storage'
 
@@ -12,7 +13,7 @@ const instance = axios.create({
 const err = (error) => {
   if (error.response) {
     const data = error.response.data
-    const token = getStore(ACCESS_TOKEN)
+    // const token = getStore(ACCESS_TOKEN)
     if (error.response.status === 403) {
       notification.error({
         message: 'Forbidden',
@@ -24,13 +25,10 @@ const err = (error) => {
         message: 'Unauthorized',
         description: 'Authorization verification failed'
       })
-      if (token) {
-        store.dispatch('Logout').then(() => {
-          setTimeout(() => {
-            window.location.reload()
-          }, 1500)
-        })
-      }
+      store.commit(SET_TOKEN, '')
+      store.dispatch('Logout').then(() => {
+        window.location.reload()
+      })
     }
   }
   return Promise.reject(error)
