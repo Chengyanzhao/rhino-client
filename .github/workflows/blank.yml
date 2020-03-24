@@ -23,8 +23,8 @@ jobs:
           node-version: 12.16.1
       - name: npm install, build, and test
         run: |
-          npm install
-          npm run build:test --if-present
+          yarn
+          npm run build
       - name: Deploy
         uses: appleboy/scp-action@master
         with:
