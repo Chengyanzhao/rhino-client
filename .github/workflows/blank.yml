@@ -5,10 +5,8 @@ name: CI
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+  release:
+    types: [published]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,17 +20,15 @@ jobs:
         with:
           node-version: 12.16.1
       - name: npm install, build, and test
-        run: |
-          yarn
-          npm run build
-      - name: executing remote ssh commands using password
+        run: yarn && yarn run build
+      - name: clear last files in server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: rm -rf /var/www/rhino/*
-      - name: Deploy
+      - name: Copy build result
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
