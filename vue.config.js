@@ -1,5 +1,5 @@
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const productionGzipExtensions = ['js', 'css']
 const isProduction = process.env.NODE_ENV === 'production'
@@ -27,7 +27,7 @@ module.exports = {
           threshold: 10240,
           minRatio: 0.8
         }),
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin()
       )
     }
   }
