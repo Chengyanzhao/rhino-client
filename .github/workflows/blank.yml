@@ -25,11 +25,18 @@ jobs:
         run: |
           yarn
           npm run build
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: rm -rf /var/www/rhino/*
       - name: Deploy
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "dist/*"
+          source: "dist/."
           target: "/var/www/rhino/"
