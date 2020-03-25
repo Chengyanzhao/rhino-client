@@ -26,9 +26,9 @@ const err = (error) => {
         description: 'Authorization verification failed'
       })
       store.commit(SET_TOKEN, '')
-      store.dispatch('Logout').then(() => {
-        window.location.reload()
-      })
+      // store.dispatch('Logout').then(() => {
+      window.location.reload()
+      // })
     }
   }
   return Promise.reject(error)
